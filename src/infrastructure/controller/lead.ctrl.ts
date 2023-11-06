@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { LeadCreate } from "../../application/lead.create";
+import { file } from "../../domain/media";
 
 
 class LeadCtrl {
@@ -13,8 +14,10 @@ class LeadCtrl {
 
   public sendMedia = async ({ body, file }: Request, res: Response) => {
     const { message, phone } = body;
-    const media = file?.buffer.toString('base64') ?? '';
+    let media: file = file as file;
+    media.filename = file?.originalname ?? 'archivo';
     const response = await this.leadCreator.sendMedia({ media, phone })
+    res.send(response);
   };
 }
 

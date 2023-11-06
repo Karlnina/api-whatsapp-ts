@@ -1,5 +1,6 @@
 import LeadExternal from "../domain/lead-external.repository";
 import LeadRepository from "../domain/lead.repository";
+import { file } from "../domain/media";
 
 export class LeadCreate {
   private leadRepository: LeadRepository;
@@ -26,7 +27,7 @@ export class LeadCreate {
     media,
     phone,
   }: {
-    media: string;
+    media: file;
     phone: string;
   }) {
     const responseExSave = await this.leadExternal.sendMedia({ media, phone });//TODO enviar a ws

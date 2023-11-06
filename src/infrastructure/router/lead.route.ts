@@ -3,7 +3,9 @@ import multer from "multer";
 import LeadCtrl from "../controller/lead.ctrl";
 import container from "../ioc";
 const router: Router = Router();
-const upload = multer({ dest: 'uploads/' })
+
+const storage = multer.memoryStorage()
+const upload = multer({ storage: storage })
 
 /**
  * http://localhost/lead POST
