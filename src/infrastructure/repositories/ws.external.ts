@@ -1,4 +1,4 @@
-import { Client, LocalAuth } from "whatsapp-web.js";
+import { Client, LocalAuth, MessageMedia } from "whatsapp-web.js";
 import { image as imageQr } from "qr-image";
 import LeadExternal from "../../domain/lead-external.repository";
 
@@ -11,13 +11,13 @@ class WsTransporter extends Client implements LeadExternal {
   constructor() {
     super({
       authStrategy: new LocalAuth(),
-      puppeteer: {
-        headless: true,
-        args: [
-          "--disable-setuid-sandbox",
-          "--unhandled-rejections=strict",
-        ],
-      },
+      // puppeteer: {
+      //   headless: true,
+      //   args: [
+      //     "--disable-setuid-sandbox",
+      //     "--unhandled-rejections=strict",
+      //   ],
+      // },
     });
 
     console.log("Iniciando....");
@@ -50,6 +50,22 @@ class WsTransporter extends Client implements LeadExternal {
       if (!this.status) return Promise.resolve({ error: "WAIT_LOGIN" });
       const { message, phone } = lead;
       const response = await this.sendMessage(`${phone}@c.us`, message);
+      return { id: response.id.id };
+    } catch (e: any) {
+      return Promise.resolve({ error: e.message });
+    }
+  }
+  /**
+   * Enviar media de WS
+   * @param lead
+   * @returns
+   */
+  async sendMedia(lead: { media: string; phone: string }): Promise<any> {
+    try {
+      if (!this.status) return Promise.resolve({ error: "WAIT_LOGIN" });
+      const { media, phone } = lead;
+      const file = new MessageMedia('image/png', media);
+      const response = await this.sendMessage(`${phone}@c.us`, file);
       return { id: response.id.id };
     } catch (e: any) {
       return Promise.resolve({ error: e.message });

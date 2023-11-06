@@ -1,0 +1,7 @@
+
+POST http://80.85.152.4:3000/lead 
+content-type: application/json
+
+{
+"message": "hola profit", "phone": "59179550916"
+}
