@@ -9,7 +9,13 @@ class LeadCtrl {
   public sendCtrl = async ({ body }: Request, res: Response) => {
     const { message, phone } = body;
     const response = await this.leadCreator.sendMessageAndSave({ message, phone })
-    res.send(response);
+    if (response.responseExSave.error) {
+      return res.status(400).send({ success: false, message: "error send message" });
+    }
+    res.send({
+      success: true,
+      data: response.responseExSave.id,
+    });
   };
 
   public sendMedia = async ({ body, file }: Request, res: Response) => {
@@ -17,7 +23,13 @@ class LeadCtrl {
     let media: file = file as file;
     media.filename = file?.originalname ?? 'archivo';
     const response = await this.leadCreator.sendMedia({ media, phone })
-    res.send(response);
+    if (response.responseExSave.error) {
+      return res.status(400).send({ success: false, message: "error send message" });
+    }
+    res.send({
+      success: true,
+      data: response.responseExSave.id,
+    });
   };
 }
 

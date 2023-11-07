@@ -1,7 +1,8 @@
 
 # POST http://80.85.152.4:3000/lead 
-POST http://localhost:3001/notification 
+POST http://localhost:3001/notification
 content-type: application/json
+Authorization: Basic frog-notification:FwZFRyvdGveA
 
 {
 "message": "hola profit", "phone": "59176227940"
