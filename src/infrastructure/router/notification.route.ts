@@ -8,7 +8,7 @@ const storage = multer.memoryStorage()
 const upload = multer({ storage: storage })
 
 /**
- * http://localhost/lead POST
+ * http://localhost/notification POST
  */
 const leadCtrl: LeadCtrl = container.get("notification.ctrl");
 router.post("/", leadCtrl.sendCtrl);

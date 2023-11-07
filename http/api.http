@@ -1,6 +1,6 @@
 
 # POST http://80.85.152.4:3000/lead 
-POST http://localhost:3001/lead 
+POST http://localhost:3001/notification 
 content-type: application/json
 
 {
