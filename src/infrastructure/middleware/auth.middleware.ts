@@ -5,7 +5,8 @@ function auth(req: Request, res: Response, next: NextFunction) {
     var authHeader = req.headers.authorization;
     if (!authHeader) {
         res.setHeader('WWW-Authenticate', 'Basic');
-        return res.status(401).json({ success: false, message: "You are not authenticated!" });
+        res.status(401).json({ success: false, message: "You are not authenticated!" });
+        return;
     }
     let auth: string[] = Buffer.from(authHeader.split(' ')[1], 'base64').toString().split(':');
     var user = auth[0];

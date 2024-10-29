@@ -4,6 +4,7 @@ import LeadExternal from "../../domain/lead-external.repository";
 
 //Silent mode
 import pino from "pino";
+import { file } from "../../domain/media";
 
 export class BaileysTransporter implements LeadExternal {
   private sessionName: string = "tokens/default";
@@ -16,6 +17,9 @@ export class BaileysTransporter implements LeadExternal {
   constructor(sessionName: string = "default", private baileys: typeof Baileys = Baileys) {
     this.sessionName = `tokens/${sessionName}`;
     this.start();
+  }
+  sendMedia({ media, phone }: { media: file; phone: string; }): Promise<any> {
+    throw new Error("Method not implemented.");
   }
 
   private async getAuth(): Promise<any> {

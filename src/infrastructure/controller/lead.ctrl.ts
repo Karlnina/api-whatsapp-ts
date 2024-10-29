@@ -10,7 +10,8 @@ class LeadCtrl {
     const { message, phone } = body;
     const response = await this.leadCreator.sendMessageAndSave({ message, phone })
     if (response.responseExSave.error) {
-      return res.status(400).send({ success: false, message: "error send message" });
+      res.status(400).send({ success: false, message: "error send message" });
+      return;
     }
     res.send({
       success: true,
@@ -24,7 +25,8 @@ class LeadCtrl {
     media.filename = file?.originalname ?? 'archivo';
     const response = await this.leadCreator.sendMedia({ media, phone })
     if (response.responseExSave.error) {
-      return res.status(400).send({ success: false, message: "error send message" });
+      res.status(400).send({ success: false, message: "error send message" });
+      return;
     }
     res.send({
       success: true,
